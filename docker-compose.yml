@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+        bind:
+          create_host_path: true
+      - type: tmpfs
+        target: /tmp
+    user: dev

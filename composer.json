@@ -1,37 +1,68 @@
 {
-  "name": "phoneburner/api-handler",
-  "description": "Simple set of handlers to add an API to any project.",
-  "type": "library",
-  "license": "MIT",
-  "keywords": ["api", "psr", "psr-7", "psr-15", "http", "http-message", "request", "response"],
-  "authors": [
-    {
-      "name": "Tim Lytle",
-      "email": "tim@phoneburner.com"
+    "name": "phoneburner/api-handler",
+    "description": "Simple set of handlers to add an API to any project.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "api",
+        "psr",
+        "psr-7",
+        "psr-15",
+        "http",
+        "http-message",
+        "request",
+        "response"
+    ],
+    "authors": [
+        {
+            "name": "Tim Lytle",
+            "email": "tim@phoneburner.com"
+        }
+    ],
+    "minimum-stability": "rc",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "require": {
+        "php": "8.2.* || 8.3.*",
+        "phoneburner/http-tortilla": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.0",
+        "psr/http-server-middleware": "^1.0"
+    },
+    "require-dev": {
+        "phpspec/prophecy-phpunit": "^2.2",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "phpunit/phpunit": "^11.0",
+        "rector/rector": "^1.0",
+        "slevomat/coding-standard": "^8.15",
+        "squizlabs/php_codesniffer": "^3.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhoneBurner\\Api\\Handler\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhoneBurnerTest\\Api\\Handler\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpcbf": "@php vendor/bin/phpcbf --report=full",
+        "phpcs": "@php vendor/bin/phpcs --report=full",
+        "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1",
+        "phpunit": "XDEBUG_MODE=coverage @php vendor/bin/phpunit --coverage-text",
+        "rector": "@php vendor/bin/rector process",
+        "ci": [
+            "@phpcs",
+            "@phpunit",
+            "@phpstan",
+            "@php vendor/bin/rector process --dry-run"
+        ]
     }
-  ],
-  "minimum-stability": "rc",
-  "require": {
-    "php": "^8.2",
-    "phoneburner/http-tortilla": "^1.0",
-    "psr/http-factory": "^1.0",
-    "psr/http-message": "^1.0",
-    "psr/http-server-middleware": "^1.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9",
-    "phpspec/prophecy-phpunit": "^2.0",
-    "squizlabs/php_codesniffer": "3.*",
-    "escapestudios/symfony2-coding-standard": "^3.9"
-  },
-  "autoload": {
-    "psr-4": {
-      "PhoneBurner\\Api\\Handler\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "PhoneBurnerTest\\Api\\Handler\\": "test/"
-    }
-  }
 }
