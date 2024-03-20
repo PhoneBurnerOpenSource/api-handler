@@ -1,0 +1,37 @@
+{
+  "name": "phoneburner/api-handler",
+  "description": "Simple set of handlers to add an API to any project.",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["api", "psr", "psr-7", "psr-15", "http", "http-message", "request", "response"],
+  "authors": [
+    {
+      "name": "Tim Lytle",
+      "email": "tim@phoneburner.com"
+    }
+  ],
+  "minimum-stability": "rc",
+  "require": {
+    "php": "^8.2",
+    "phoneburner/http-tortilla": "^1.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/http-server-middleware": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "phpspec/prophecy-phpunit": "^2.0",
+    "squizlabs/php_codesniffer": "3.*",
+    "escapestudios/symfony2-coding-standard": "^3.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhoneBurner\\Api\\Handler\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhoneBurnerTest\\Api\\Handler\\": "test/"
+    }
+  }
+}
