@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhoneBurnerTest\Api\Handler;
 
 use PhoneBurner\Api\Handler\CreateHandler;
@@ -8,6 +10,7 @@ use PhoneBurner\Api\Handler\Resolver;
 use PhoneBurner\Api\Handler\ResponseFactory;
 use PhoneBurner\Api\Handler\TransformableResource;
 use PhoneBurner\Api\Handler\Transformer;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -55,9 +58,7 @@ class CreateHandlerTest extends TestCase
         $this->factory = $this->prophesize(ResponseFactory::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handle_resolves_resource_and_returns_updated_resource(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();

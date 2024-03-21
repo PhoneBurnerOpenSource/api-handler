@@ -8,6 +8,8 @@ use PhoneBurner\Api\Handler\ResponseFactory;
 use PhoneBurner\Api\Handler\TransformableResource;
 use PhoneBurner\Api\Handler\TransformableResponse;
 use PhoneBurner\Api\Handler\Transformer;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -53,9 +55,7 @@ class TransformableResponseTest extends TestCase
             ->willReturn($this->realized_response->reveal());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function transformable_resource_is_accessible(): void
     {
         $sut = new TransformableResponse(
@@ -65,9 +65,7 @@ class TransformableResponseTest extends TestCase
         self::assertSame($this->transformable_resource, $sut->transformable_resource);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function withTransformableResource_replaces_TransformableResource(): void
     {
         $resource = new \stdClass();
@@ -99,10 +97,8 @@ class TransformableResponseTest extends TestCase
         self::assertSame($this->transformable_resource, $sut->transformable_resource);
     }
 
-    /**
-     * @test
-     * @dataProvider provideWithMethods
-     */
+    #[DataProvider('provideWithMethods')]
+    #[Test]
     public function withMethods_realize_Response_once_and_return(string $method, array $args): void
     {
         $this->factory->make($this->transformable_resource, 200)->shouldBeCalledOnce();
@@ -121,10 +117,8 @@ class TransformableResponseTest extends TestCase
         self::assertSame($mutated_response, $sut->$method(...$args));
     }
 
-    /**
-     * @test
-     * @dataProvider provideGetMethods
-     */
+    #[DataProvider('provideGetMethods')]
+    #[Test]
     public function getMethods_realize_Response_once_and_pass_response($method, array $args, mixed $return): void
     {
         $this->factory->make($this->transformable_resource, 200)->shouldBeCalledOnce();
@@ -141,9 +135,7 @@ class TransformableResponseTest extends TestCase
         self::assertSame($return, $sut->$method(...$args));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStatusCode_does_not_realize_Response(): void
     {
         $this->factory->make(Argument::cetera(), 200)

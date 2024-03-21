@@ -56,7 +56,7 @@
         "phpcbf": "@php vendor/bin/phpcbf --report=full",
         "phpcs": "@php vendor/bin/phpcs --report=full",
         "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1",
-        "phpunit": "XDEBUG_MODE=coverage @php vendor/bin/phpunit --coverage-text",
+        "phpunit": "@php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-text",
         "rector": "@php vendor/bin/rector process",
         "ci": [
             "@phpcs",

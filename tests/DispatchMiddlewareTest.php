@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhoneBurnerTest\Api\Handler;
 
-use PhoneBurner\Api\Handler\DispatchMiddleware;
 use PhoneBurner\Api\Handler\DispatchMiddleware as SUT;
 use PhoneBurner\Api\Handler\HandlerFactory;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -25,12 +27,10 @@ class DispatchMiddlewareTest extends TestCase
     protected function setUp(): void
     {
         $this->factory = $this->prophesize(HandlerFactory::class);
-        $this->sut = new DispatchMiddleware($this->factory->reveal());
+        $this->sut = new SUT($this->factory->reveal());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function process_passes_if_factory_cannot_handle(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class);
@@ -44,9 +44,7 @@ class DispatchMiddlewareTest extends TestCase
         self::assertSame($response->reveal(), $this->sut->process($request->reveal(), $next->reveal()));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function process_creates_handler_and_calls(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class);

@@ -12,5 +12,5 @@ return RectorConfig::configure()
     ->withRootFiles()
     ->withPaths([__DIR__ . '/src', __DIR__ . '/tests'])
     ->withPhpSets(php83: true)
-    ->withAttributesSets()
+    ->withAttributesSets(phpunit: true)
     ->withPreparedSets();

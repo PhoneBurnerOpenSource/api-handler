@@ -11,8 +11,8 @@ use Psr\Http\Message\StreamFactoryInterface;
 class SimpleResponseFactory implements ResponseFactory
 {
     public function __construct(
-        private ResponseFactoryInterface $response_factory,
-        private StreamFactoryInterface $stream_factory,
+        private readonly ResponseFactoryInterface $response_factory,
+        private readonly StreamFactoryInterface $stream_factory,
     ) {
     }
 

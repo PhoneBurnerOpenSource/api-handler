@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhoneBurnerTest\Api\Handler;
 
 use PhoneBurner\Api\Handler\TransformableResource;
 use PhoneBurner\Api\Handler\Transformer;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,10 +15,8 @@ class TransformableResourceTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     */
-    public function getContent_transforms_resource()
+    #[Test]
+    public function getContent_transforms_resource(): void
     {
         $resource = new \stdClass();
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
@@ -29,10 +30,8 @@ class TransformableResourceTest extends TestCase
         self::assertSame($response, $sut->getContent());
     }
 
-    /**
-     * @test
-     */
-    public function is_value_object()
+    #[Test]
+    public function is_value_object(): void
     {
         $resource = new \stdClass();
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
