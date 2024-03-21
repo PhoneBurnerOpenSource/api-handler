@@ -8,5 +8,5 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 interface Handler extends RequestHandlerInterface
 {
-    public function setResponseFactory(ResponseFactory $response_factory): void;
+    public function setResponseFactory(ResponseFactory $factory): void;
 }

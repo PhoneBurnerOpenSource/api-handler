@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhoneBurner\Api\Handler;
 
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -11,11 +13,9 @@ class DefaultFactory
 
     public static function getDefaultResponseFactory(): ResponseFactory
     {
-        if (! isset(self::$factory)) {
-            throw new \RuntimeException('Default response factory not set, use setDefaultResponseFactory() or setFactories() to set it.');
-        }
-
-        return self::$factory;
+        return self::$factory ?? throw new \LogicException(
+            'Default response factory not set, use setDefaultResponseFactory() or setFactories() to set it.',
+        );
     }
 
     public static function setDefaultResponseFactory(ResponseFactory $factory): void

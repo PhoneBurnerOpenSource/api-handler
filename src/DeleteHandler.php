@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhoneBurner\Api\Handler;
 
 use Psr\Http\Message\ResponseInterface;
@@ -26,7 +28,7 @@ class DeleteHandler extends DefaultHandler
             $this->resolver->resolve($request),
         );
 
-        if (\is_null($resource)) {
+        if ($resource === null) {
             return $this->getResponseFactory()->make(null, 204);
         }
 

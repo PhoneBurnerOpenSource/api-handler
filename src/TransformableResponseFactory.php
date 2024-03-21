@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PhoneBurner\Api\Handler;
 
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +15,7 @@ class TransformableResponseFactory implements ResponseFactory
 
     public function make(?TransformableResource $resource = null, int $code = 200): ResponseInterface
     {
-        if (\is_null($resource)) {
+        if ($resource === null) {
             return $this->realizing_factory->make(null, $code);
         }
 

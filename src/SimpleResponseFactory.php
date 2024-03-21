@@ -18,26 +18,17 @@ class SimpleResponseFactory implements ResponseFactory
 
     public function make(?TransformableResource $resource = null, int $code = 200): ResponseInterface
     {
-        if (\is_null($resource)) {
+        if ($resource === null) {
             return $this->response_factory->createResponse($code);
         }
 
         $content = $resource->getContent();
         $response = $this->response_factory->createResponse($code);
 
-        if (\is_null($content)) {
-            return $response;
-        }
-
-        if (\is_resource($content)) {
-            return $response->withBody($this->stream_factory->createStreamFromResource($content));
-        }
-
-        $content = match (true) {
-            \is_string($content) => $content,
-            default => \json_encode($content, \JSON_THROW_ON_ERROR) ?: ''
-        };
-
-        return $response->withBody($this->stream_factory->createStream($content));
+        return $content === null ? $response : $response->withBody(match (true) {
+            \is_resource($content) => $this->stream_factory->createStreamFromResource($content),
+            \is_string($content) => $this->stream_factory->createStream($content),
+            default => $this->stream_factory->createStream(\json_encode($content, \JSON_THROW_ON_ERROR) ?: '')
+        });
     }
 }

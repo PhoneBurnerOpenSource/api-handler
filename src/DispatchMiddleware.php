@@ -17,11 +17,10 @@ class DispatchMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (! $this->factory->canHandle($request)) {
-            return $handler->handle($request);
+        if ($this->factory->canHandle($request)) {
+            return $this->factory->makeForRequest($request)->handle($request);
         }
 
-        $handler = $this->factory->makeForRequest($request);
         return $handler->handle($request);
     }
 }

@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 interface Resolver
 {
     /**
-     * @return T
+     * @phpstan-return T
      */
     public function resolve(ServerRequestInterface $request): object;
 }

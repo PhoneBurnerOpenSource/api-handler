@@ -42,6 +42,8 @@
     <!-- Use of the Backtick Operator (`) is Prohibited - Use \shell_exec() Instead -->
     <rule ref="Generic.PHP.BacktickOperator"/>
 
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
+
     <!-- Require Trailing Commas in Multiline Arrays, Calls, and Declarations -->
     <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
     <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>
