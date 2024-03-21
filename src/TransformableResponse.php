@@ -13,8 +13,7 @@ class TransformableResponse implements ResponseInterface
         public readonly TransformableResource $transformable_resource,
         private readonly ResponseFactory $response_factory,
         private readonly int $status = 200,
-    )
-    {
+    ) {
     }
 
     public function withTransformableResource(TransformableResource $transformable_resource): self
@@ -39,5 +38,4 @@ class TransformableResponse implements ResponseInterface
     {
         return $this->wrapped ??= $this->response_factory->make($this->transformable_resource, $this->status);
     }
-
 }

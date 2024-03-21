@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PhoneBurner\Api\Handler;
@@ -14,9 +15,9 @@ class DispatchMiddleware implements MiddlewareInterface
     {
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (!$this->factory->canHandle($request)) {
+        if (! $this->factory->canHandle($request)) {
             return $handler->handle($request);
         }
 

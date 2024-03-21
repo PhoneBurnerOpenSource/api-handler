@@ -11,7 +11,7 @@ class DefaultFactory
 
     public static function getDefaultResponseFactory(): ResponseFactory
     {
-        if(!isset(self::$factory)) {
+        if (! isset(self::$factory)) {
             throw new \RuntimeException('Default response factory not set, use setDefaultResponseFactory() or setFactories() to set it.');
         }
 
@@ -26,8 +26,7 @@ class DefaultFactory
     public static function setFactories(
         ResponseFactoryInterface $response_factory,
         StreamFactoryInterface $stream_factory,
-    ): void
-    {
+    ): void {
         self::setDefaultResponseFactory(new TransformableResponseFactory(
             new SimpleResponseFactory($response_factory, $stream_factory),
         ));

@@ -47,7 +47,7 @@ class TransformableResponseFactoryTest extends TestCase
             $transformable_response->getReasonPhrase(),
         );
     }
-    
+
     /**
      * @test
      */

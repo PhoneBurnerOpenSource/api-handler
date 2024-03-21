@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PhoneBurner\Api\Handler;
@@ -12,9 +13,9 @@ class UpdateHandler extends DefaultHandler
         private readonly Resolver $resolver,
         private readonly Hydrator $hydrator,
         private readonly Transformer $transformer,
-    )
-    {
+    ) {
     }
+
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return $this->getResponseFactory()->make(
@@ -25,7 +26,8 @@ class UpdateHandler extends DefaultHandler
                 ),
                 $request,
                 $this->transformer,
-            ), 200
+            ),
+            200,
         );
     }
 }

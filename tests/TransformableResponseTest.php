@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PhoneBurnerTest\Api\Handler;
 
-use Networx\Salt\Util\Helper\Str;
 use PhoneBurner\Api\Handler\ResponseFactory;
 use PhoneBurner\Api\Handler\TransformableResource;
 use PhoneBurner\Api\Handler\TransformableResponse;
@@ -60,7 +60,7 @@ class TransformableResponseTest extends TestCase
     {
         $sut = new TransformableResponse(
             $this->transformable_resource,
-            $this->factory->reveal()
+            $this->factory->reveal(),
         );
         self::assertSame($this->transformable_resource, $sut->transformable_resource);
     }
@@ -83,7 +83,6 @@ class TransformableResponseTest extends TestCase
         $sut = new TransformableResponse(
             $this->transformable_resource,
             $this->factory->reveal(),
-
         );
 
         $other_response = $this->prophesize(ResponseInterface::class);
@@ -198,6 +197,5 @@ class TransformableResponseTest extends TestCase
         $stream = $prophet->prophesize(StreamInterface::class)->reveal();
 
         yield "getBody()" => ['getBody', [], $stream];
-
     }
 }

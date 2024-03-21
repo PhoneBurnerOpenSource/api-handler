@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PhoneBurnerTest\Api\Handler;
@@ -41,6 +42,7 @@ class UpdateHandlerTest extends TestCase
     private ObjectProphecy $transformer;
 
     private UpdateHandler $sut;
+
     protected function setUp(): void
     {
         $this->resolver = $this->prophesize(Resolver::class);

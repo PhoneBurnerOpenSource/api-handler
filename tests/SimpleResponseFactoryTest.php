@@ -67,7 +67,7 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $with_response,
-            $this->sut->make($transformable_resource, $status)
+            $this->sut->make($transformable_resource, $status),
         );
     }
 
@@ -84,7 +84,7 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $response->reveal(),
-            $this->sut->make(null, $status)
+            $this->sut->make(null, $status),
         );
     }
 
@@ -113,7 +113,7 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $with_response,
-            $this->sut->make($transformable_resource, 200)
+            $this->sut->make($transformable_resource, 200),
         );
     }
 
@@ -135,7 +135,7 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $response,
-            $this->sut->make($transformable_resource, 200)
+            $this->sut->make($transformable_resource, 200),
         );
     }
 
@@ -148,7 +148,7 @@ class SimpleResponseFactoryTest extends TestCase
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
         $transformer = $this->prophesize(Transformer::class);
 
-        $stream_resource = fopen('php://temp', 'r+');
+        $stream_resource = \fopen('php://temp', 'r+');
 
         $transformer->transform($resource, $request)->willReturn($stream_resource);
 
@@ -165,7 +165,7 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $with_response,
-            $this->sut->make($transformable_resource, 200)
+            $this->sut->make($transformable_resource, 200),
         );
     }
 
@@ -174,16 +174,16 @@ class SimpleResponseFactoryTest extends TestCase
         yield 'string' => ['an api response', 'an api response'];
 
         foreach ([true, false] as $value) {
-            yield 'bool: ' . ($value ? 'true' : 'false') => [$value, json_encode($value)];
+            yield 'bool: ' . ($value ? 'true' : 'false') => [$value, \json_encode($value)];
         }
 
         $array = ['an' => 'api', 'response' => 'array'];
-        yield 'array' => [$array, json_encode($array)];
+        yield 'array' => [$array, \json_encode($array)];
 
         $object = new \stdClass();
         $object->an = 'api';
         $object->response = 'object';
 
-        yield 'object' => [$object, json_encode($object)];
+        yield 'object' => [$object, \json_encode($object)];
     }
 }

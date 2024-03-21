@@ -10,8 +10,7 @@ class CreateHandler extends DefaultHandler
     public function __construct(
         private readonly Hydrator $hydrator,
         private readonly Transformer $transformer,
-    )
-    {
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -21,7 +20,8 @@ class CreateHandler extends DefaultHandler
                 $this->hydrator->create($request),
                 $request,
                 $this->transformer,
-            ), 201
+            ),
+            201,
         );
     }
 }

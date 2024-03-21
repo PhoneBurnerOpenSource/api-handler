@@ -11,8 +11,7 @@ class DeleteHandler extends DefaultHandler
         private readonly Resolver $resolver,
         private readonly Hydrator $hydrator,
         private readonly Transformer $transformer,
-    )
-    {
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -22,7 +21,7 @@ class DeleteHandler extends DefaultHandler
             $this->resolver->resolve($request),
         );
 
-        if (is_null($resource)) {
+        if (\is_null($resource)) {
             return $this->getResponseFactory()->make(null, 204);
         }
 
@@ -31,8 +30,8 @@ class DeleteHandler extends DefaultHandler
                 $resource,
                 $request,
                 $this->transformer,
-            ), 200
+            ),
+            200,
         );
-
     }
 }

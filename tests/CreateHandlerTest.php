@@ -40,6 +40,7 @@ class CreateHandlerTest extends TestCase
     private ObjectProphecy $transformer;
 
     private CreateHandler $sut;
+
     protected function setUp(): void
     {
         $this->resolver = $this->prophesize(Resolver::class);

@@ -10,8 +10,7 @@ class ReadHandler extends DefaultHandler
     public function __construct(
         private readonly Resolver $resolver,
         private readonly Transformer $transformer,
-    )
-    {
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -21,7 +20,8 @@ class ReadHandler extends DefaultHandler
                 $this->resolver->resolve($request),
                 $request,
                 $this->transformer,
-            ), 200
+            ),
+            200,
         );
     }
 }

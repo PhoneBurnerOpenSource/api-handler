@@ -40,6 +40,7 @@ class ReadHandlerTest extends TestCase
     private ObjectProphecy $transformer;
 
     private ReadHandler $sut;
+
     protected function setUp(): void
     {
         $this->resolver = $this->prophesize(Resolver::class);

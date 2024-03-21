@@ -2,11 +2,10 @@
 
 namespace PhoneBurnerTest\Api\Handler;
 
-use PhoneBurner\Api\Handler\Transformer;
 use PhoneBurner\Api\Handler\TransformableResource;
+use PhoneBurner\Api\Handler\Transformer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class TransformableResourceTest extends TestCase

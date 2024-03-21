@@ -8,13 +8,12 @@ class TransformableResponseFactory implements ResponseFactory
 {
     public function __construct(
         private readonly ResponseFactory $realizing_factory,
-    )
-    {
+    ) {
     }
 
-    public function make(TransformableResource $resource = null, int $code = 200): ResponseInterface
+    public function make(?TransformableResource $resource = null, int $code = 200): ResponseInterface
     {
-        if (is_null($resource)) {
+        if (\is_null($resource)) {
             return $this->realizing_factory->make(null, $code);
         }
 
