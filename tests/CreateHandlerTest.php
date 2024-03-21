@@ -1,13 +1,15 @@
 <?php
 
-namespace PhoneBurnerTest\Api\Handler;
+declare(strict_types=1);
 
-use PhoneBurner\Api\Handler\CreateHandler;
-use PhoneBurner\Api\Handler\Hydrator;
-use PhoneBurner\Api\Handler\Resolver;
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\Transformer;
+namespace PhoneBurner\Tests\ApiHandler;
+
+use PhoneBurner\ApiHandler\CreateHandler;
+use PhoneBurner\ApiHandler\Hydrator;
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\Transformer;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -30,19 +32,14 @@ class CreateHandlerTest extends TestCase
     private ObjectProphecy $hydrator;
 
     /**
-     * @var ObjectProphecy<Resolver>
-     */
-    private ObjectProphecy $resolver;
-
-    /**
      * @var ObjectProphecy<Transformer>
      */
     private ObjectProphecy $transformer;
 
     private CreateHandler $sut;
+
     protected function setUp(): void
     {
-        $this->resolver = $this->prophesize(Resolver::class);
         $this->hydrator = $this->prophesize(Hydrator::class);
         $this->transformer = $this->prophesize(Transformer::class);
 
@@ -54,9 +51,7 @@ class CreateHandlerTest extends TestCase
         $this->factory = $this->prophesize(ResponseFactory::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handle_resolves_resource_and_returns_updated_resource(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();

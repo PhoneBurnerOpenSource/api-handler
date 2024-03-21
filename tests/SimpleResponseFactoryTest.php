@@ -1,10 +1,15 @@
 <?php
 
-namespace PhoneBurnerTest\Api\Handler;
+declare(strict_types=1);
 
-use PhoneBurner\Api\Handler\SimpleResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\Transformer;
+namespace PhoneBurner\Tests\ApiHandler;
+
+use PhoneBurner\ApiHandler\SimpleResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\Transformer;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -27,6 +32,7 @@ class SimpleResponseFactoryTest extends TestCase
      * @var ObjectProphecy<StreamFactoryInterface>
      */
     private ObjectProphecy $stream_factory;
+
     private SimpleResponseFactory $sut;
 
     protected function setUp(): void
@@ -40,12 +46,10 @@ class SimpleResponseFactoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @testWith [200]
-     *           [201]
-     *           [202]
-     */
+    #[Test]
+    #[TestWith([200])]
+    #[TestWith([201])]
+    #[TestWith([202])]
     public function make_allows_varied_status_codes(int $status): void
     {
         $resource = new \stdClass();
@@ -67,16 +71,14 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $with_response,
-            $this->sut->make($transformable_resource, $status)
+            $this->sut->make($transformable_resource, $status),
         );
     }
 
-    /**
-     * @test
-     * @testWith [200]
-     *           [201]
-     *           [202]
-     */
+    #[Test]
+    #[TestWith([200])]
+    #[TestWith([201])]
+    #[TestWith([202])]
     public function make_allows_null_TransformableResource(int $status): void
     {
         $response = $this->prophesize(ResponseInterface::class);
@@ -84,14 +86,12 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $response->reveal(),
-            $this->sut->make(null, $status)
+            $this->sut->make(null, $status),
         );
     }
 
-    /**
-     * @test
-     * @dataProvider provideReturns
-     */
+    #[Test]
+    #[DataProvider('provideReturns')]
     public function make_returns_response_with_expected_body(mixed $value, string $content): void
     {
         $resource = new \stdClass();
@@ -113,13 +113,11 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $with_response,
-            $this->sut->make($transformable_resource, 200)
+            $this->sut->make($transformable_resource, 200),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function make_allows_null(): void
     {
         $resource = new \stdClass();
@@ -135,20 +133,18 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $response,
-            $this->sut->make($transformable_resource, 200)
+            $this->sut->make($transformable_resource, 200),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function make_allows_resource(): void
     {
         $resource = new \stdClass();
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
         $transformer = $this->prophesize(Transformer::class);
 
-        $stream_resource = fopen('php://temp', 'r+');
+        $stream_resource = \fopen('php://temp', 'r+');
 
         $transformer->transform($resource, $request)->willReturn($stream_resource);
 
@@ -165,25 +161,25 @@ class SimpleResponseFactoryTest extends TestCase
 
         self::assertSame(
             $with_response,
-            $this->sut->make($transformable_resource, 200)
+            $this->sut->make($transformable_resource, 200),
         );
     }
 
-    public function provideReturns(): \Generator
+    public static function provideReturns(): \Generator
     {
         yield 'string' => ['an api response', 'an api response'];
 
         foreach ([true, false] as $value) {
-            yield 'bool: ' . ($value ? 'true' : 'false') => [$value, json_encode($value)];
+            yield 'bool: ' . ($value ? 'true' : 'false') => [$value, \json_encode($value, \JSON_THROW_ON_ERROR)];
         }
 
         $array = ['an' => 'api', 'response' => 'array'];
-        yield 'array' => [$array, json_encode($array)];
+        yield 'array' => [$array, \json_encode($array, \JSON_THROW_ON_ERROR)];
 
         $object = new \stdClass();
         $object->an = 'api';
         $object->response = 'object';
 
-        yield 'object' => [$object, json_encode($object)];
+        yield 'object' => [$object, \json_encode($object, \JSON_THROW_ON_ERROR)];
     }
 }

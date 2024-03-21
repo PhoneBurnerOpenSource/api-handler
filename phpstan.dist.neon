@@ -1,0 +1,9 @@
+parameters:
+    level: max
+    tmpDir: build/phpstan
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        - message: '/no value type specified in iterable/'
+    checkGenericClassInNonGenericObjectType: false

@@ -1,13 +1,16 @@
 <?php
 
-namespace PhoneBurnerTest\Api\Handler;
+declare(strict_types=1);
 
-use PhoneBurner\Api\Handler\DeleteHandler;
-use PhoneBurner\Api\Handler\Hydrator;
-use PhoneBurner\Api\Handler\Resolver;
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\Transformer;
+namespace PhoneBurner\Tests\ApiHandler;
+
+use PhoneBurner\ApiHandler\DeleteHandler;
+use PhoneBurner\ApiHandler\Hydrator;
+use PhoneBurner\ApiHandler\Resolver;
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\Transformer;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -40,6 +43,7 @@ class DeleteHandlerTest extends TestCase
     private ObjectProphecy $transformer;
 
     private DeleteHandler $sut;
+
     protected function setUp(): void
     {
         $this->resolver = $this->prophesize(Resolver::class);
@@ -55,9 +59,7 @@ class DeleteHandlerTest extends TestCase
         $this->factory = $this->prophesize(ResponseFactory::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handle_resolves_resource_and_returns_deleted_resource(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
@@ -76,9 +78,7 @@ class DeleteHandlerTest extends TestCase
         self::assertSame($response, $this->sut->handle($request));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handle_resolves_resource_and_returns_empty_response(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();

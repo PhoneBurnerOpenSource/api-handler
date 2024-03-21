@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace PhoneBurner\Api\Handler;
+namespace PhoneBurner\ApiHandler;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;

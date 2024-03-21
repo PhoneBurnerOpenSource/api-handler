@@ -1,11 +1,15 @@
 <?php
 
-namespace PhoneBurnerTest\Api\Handler;
+declare(strict_types=1);
 
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\TransformableResponseFactory;
-use PhoneBurner\Api\Handler\Transformer;
+namespace PhoneBurner\Tests\ApiHandler;
+
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\TransformableResponseFactory;
+use PhoneBurner\ApiHandler\Transformer;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ResponseInterface;
@@ -15,11 +19,9 @@ class TransformableResponseFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @test
-     * @testWith [200]
-     *           [201]
-     */
+    #[Test]
+    #[TestWith([200])]
+    #[TestWith([201])]
     public function make_returns_TransformableResponse_configured_with_realizing_factory(int $status): void
     {
         $resource = new \stdClass();
@@ -47,10 +49,8 @@ class TransformableResponseFactoryTest extends TestCase
             $transformable_response->getReasonPhrase(),
         );
     }
-    
-    /**
-     * @test
-     */
+
+    #[Test]
     public function make_returns_empty_response_without_TransformableResponse(): void
     {
         $response = $this->prophesize(ResponseInterface::class);

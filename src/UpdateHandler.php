@@ -1,20 +1,26 @@
 <?php
+
 declare(strict_types=1);
 
-namespace PhoneBurner\Api\Handler;
+namespace PhoneBurner\ApiHandler;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class UpdateHandler extends DefaultHandler
 {
+    /**
+     * @template T of object
+     * @param Resolver<T> $resolver
+     * @param Hydrator<T> $hydrator
+     */
     public function __construct(
         private readonly Resolver $resolver,
         private readonly Hydrator $hydrator,
         private readonly Transformer $transformer,
-    )
-    {
+    ) {
     }
+
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return $this->getResponseFactory()->make(
@@ -25,7 +31,8 @@ class UpdateHandler extends DefaultHandler
                 ),
                 $request,
                 $this->transformer,
-            ), 200
+            ),
+            200,
         );
     }
 }

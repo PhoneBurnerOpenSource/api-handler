@@ -1,17 +1,22 @@
 <?php
 
-namespace PhoneBurner\Api\Handler;
+declare(strict_types=1);
+
+namespace PhoneBurner\ApiHandler;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class CreateHandler extends DefaultHandler
 {
+    /**
+     * @template T of object
+     * @param Hydrator<T> $hydrator
+     */
     public function __construct(
         private readonly Hydrator $hydrator,
         private readonly Transformer $transformer,
-    )
-    {
+    ) {
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -21,7 +26,8 @@ class CreateHandler extends DefaultHandler
                 $this->hydrator->create($request),
                 $request,
                 $this->transformer,
-            ), 201
+            ),
+            201,
         );
     }
 }

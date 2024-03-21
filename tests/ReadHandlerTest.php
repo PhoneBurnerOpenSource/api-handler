@@ -1,13 +1,15 @@
 <?php
 
-namespace PhoneBurnerTest\Api\Handler;
+declare(strict_types=1);
 
-use PhoneBurner\Api\Handler\Hydrator;
-use PhoneBurner\Api\Handler\ReadHandler;
-use PhoneBurner\Api\Handler\Resolver;
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\Transformer;
+namespace PhoneBurner\Tests\ApiHandler;
+
+use PhoneBurner\ApiHandler\ReadHandler;
+use PhoneBurner\ApiHandler\Resolver;
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\Transformer;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -25,11 +27,6 @@ class ReadHandlerTest extends TestCase
     private ObjectProphecy $factory;
 
     /**
-     * @var ObjectProphecy<Hydrator>
-     */
-    private ObjectProphecy $hydrator;
-
-    /**
      * @var ObjectProphecy<Resolver>
      */
     private ObjectProphecy $resolver;
@@ -40,10 +37,10 @@ class ReadHandlerTest extends TestCase
     private ObjectProphecy $transformer;
 
     private ReadHandler $sut;
+
     protected function setUp(): void
     {
         $this->resolver = $this->prophesize(Resolver::class);
-        $this->hydrator = $this->prophesize(Hydrator::class);
         $this->transformer = $this->prophesize(Transformer::class);
 
         $this->sut = new ReadHandler(
@@ -54,9 +51,7 @@ class ReadHandlerTest extends TestCase
         $this->factory = $this->prophesize(ResponseFactory::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function handle_resolves_resource_and_returns_resource(): void
     {
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();

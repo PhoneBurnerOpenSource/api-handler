@@ -1,18 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
-namespace PhoneBurnerTest\Api\Handler;
+namespace PhoneBurner\Tests\ApiHandler;
 
-use Networx\Salt\Util\Helper\Str;
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\TransformableResponse;
-use PhoneBurner\Api\Handler\Transformer;
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\TransformableResponse;
+use PhoneBurner\ApiHandler\Transformer;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Prophecy\Prophet;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -20,8 +21,6 @@ use Psr\Http\Message\StreamInterface;
 class TransformableResponseTest extends TestCase
 {
     use ProphecyTrait;
-
-    private const TRANSFORMED = 'a response';
 
     /**
      * @var ObjectProphecy<ResponseFactory>
@@ -32,6 +31,7 @@ class TransformableResponseTest extends TestCase
      * @var ObjectProphecy<ResponseInterface>
      */
     private ObjectProphecy $realized_response;
+
     private TransformableResource $transformable_resource;
 
     protected function setUp(): void
@@ -53,21 +53,17 @@ class TransformableResponseTest extends TestCase
             ->willReturn($this->realized_response->reveal());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function transformable_resource_is_accessible(): void
     {
         $sut = new TransformableResponse(
             $this->transformable_resource,
-            $this->factory->reveal()
+            $this->factory->reveal(),
         );
         self::assertSame($this->transformable_resource, $sut->transformable_resource);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function withTransformableResource_replaces_TransformableResource(): void
     {
         $resource = new \stdClass();
@@ -83,7 +79,6 @@ class TransformableResponseTest extends TestCase
         $sut = new TransformableResponse(
             $this->transformable_resource,
             $this->factory->reveal(),
-
         );
 
         $other_response = $this->prophesize(ResponseInterface::class);
@@ -100,10 +95,8 @@ class TransformableResponseTest extends TestCase
         self::assertSame($this->transformable_resource, $sut->transformable_resource);
     }
 
-    /**
-     * @test
-     * @dataProvider provideWithMethods
-     */
+    #[Test]
+    #[DataProvider('provideWithMethods')]
     public function withMethods_realize_Response_once_and_return(string $method, array $args): void
     {
         $this->factory->make($this->transformable_resource, 200)->shouldBeCalledOnce();
@@ -122,11 +115,9 @@ class TransformableResponseTest extends TestCase
         self::assertSame($mutated_response, $sut->$method(...$args));
     }
 
-    /**
-     * @test
-     * @dataProvider provideGetMethods
-     */
-    public function getMethods_realize_Response_once_and_pass_response($method, array $args, mixed $return): void
+    #[Test]
+    #[DataProvider('provideGetMethods')]
+    public function getMethods_realize_Response_once_and_pass_response(string $method, array $args, mixed $return): void
     {
         $this->factory->make($this->transformable_resource, 200)->shouldBeCalledOnce();
 
@@ -142,9 +133,7 @@ class TransformableResponseTest extends TestCase
         self::assertSame($return, $sut->$method(...$args));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStatusCode_does_not_realize_Response(): void
     {
         $this->factory->make(Argument::cetera(), 200)
@@ -163,8 +152,7 @@ class TransformableResponseTest extends TestCase
         yield "withAddedHeader('test', 'line one')" => ['withAddedHeader', ['test', 'line one']];
         yield "withoutHeader('test')" => ['withoutHeader', ['test']];
 
-        $prophet = new Prophet();
-        $stream = $prophet->prophesize(StreamInterface::class)->reveal();
+        $stream = self::createStub(StreamInterface::class);
 
         yield "withBody(StreamInterface)" => ['withBody', [$stream]];
     }
@@ -194,10 +182,8 @@ class TransformableResponseTest extends TestCase
 
         yield "getHeaderLine('test)" => ['getHeaderLine', ['test'], 'line one, line two'];
 
-        $prophet = new Prophet();
-        $stream = $prophet->prophesize(StreamInterface::class)->reveal();
+        $stream = self::createStub(StreamInterface::class);
 
         yield "getBody()" => ['getBody', [], $stream];
-
     }
 }

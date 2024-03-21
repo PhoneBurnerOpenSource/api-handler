@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace PhoneBurner\Api\Handler;
+namespace PhoneBurner\ApiHandler;
 
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -11,19 +12,19 @@ use Psr\Http\Message\ServerRequestInterface;
 interface Hydrator
 {
     /**
-     * @return T
+     * @phpstan-return T
      */
     public function create(ServerRequestInterface $request): object;
 
     /**
      * @phpstan-param T $object
-     * @return T
+     * @phpstan-return T
      */
     public function update(ServerRequestInterface $request, object $object): object;
 
     /**
      * @phpstan-param T $object
-     * @return T|null
+     * @phpstan-return T|null
      */
     public function delete(ServerRequestInterface $request, object $object): ?object;
 }
