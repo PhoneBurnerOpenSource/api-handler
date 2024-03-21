@@ -32,6 +32,7 @@ class SimpleResponseFactoryTest extends TestCase
      * @var ObjectProphecy<StreamFactoryInterface>
      */
     private ObjectProphecy $stream_factory;
+
     private SimpleResponseFactory $sut;
 
     protected function setUp(): void

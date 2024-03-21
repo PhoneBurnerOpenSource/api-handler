@@ -31,6 +31,7 @@ class TransformableResponseTest extends TestCase
      * @var ObjectProphecy<ResponseInterface>
      */
     private ObjectProphecy $realized_response;
+
     private TransformableResource $transformable_resource;
 
     protected function setUp(): void

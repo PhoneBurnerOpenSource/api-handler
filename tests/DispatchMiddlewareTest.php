@@ -22,6 +22,7 @@ class DispatchMiddlewareTest extends TestCase
      * @var ObjectProphecy<HandlerFactory>
      */
     private ObjectProphecy $factory;
+
     private SUT $sut;
 
     protected function setUp(): void

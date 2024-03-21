@@ -35,7 +35,7 @@ class SimpleResponseFactory implements ResponseFactory
 
         $content = match (true) {
             \is_string($content) => $content,
-            default => (string)\json_encode($content, \JSON_THROW_ON_ERROR),
+            default => \json_encode($content, \JSON_THROW_ON_ERROR) ?: ''
         };
 
         return $response->withBody($this->stream_factory->createStream($content));
