@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurner\Api\Handler;
+namespace PhoneBurner\ApiHandler;
 
 use PhoneBurner\Http\Message\ResponseWrapper;
 use Psr\Http\Message\ResponseInterface;

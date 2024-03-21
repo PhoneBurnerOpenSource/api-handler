@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurnerTest\Api\Handler;
+namespace PhoneBurner\Tests\ApiHandler;
 
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\TransformableResponseFactory;
-use PhoneBurner\Api\Handler\Transformer;
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\TransformableResponseFactory;
+use PhoneBurner\ApiHandler\Transformer;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;

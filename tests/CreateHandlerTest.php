@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurnerTest\Api\Handler;
+namespace PhoneBurner\Tests\ApiHandler;
 
-use PhoneBurner\Api\Handler\CreateHandler;
-use PhoneBurner\Api\Handler\Hydrator;
-use PhoneBurner\Api\Handler\ResponseFactory;
-use PhoneBurner\Api\Handler\TransformableResource;
-use PhoneBurner\Api\Handler\Transformer;
+use PhoneBurner\ApiHandler\CreateHandler;
+use PhoneBurner\ApiHandler\Hydrator;
+use PhoneBurner\ApiHandler\ResponseFactory;
+use PhoneBurner\ApiHandler\TransformableResource;
+use PhoneBurner\ApiHandler\Transformer;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

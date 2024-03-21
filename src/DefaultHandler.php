@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurner\Api\Handler;
+namespace PhoneBurner\ApiHandler;
 
 abstract class DefaultHandler implements Handler
 {

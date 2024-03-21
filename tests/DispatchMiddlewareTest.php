@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurnerTest\Api\Handler;
+namespace PhoneBurner\Tests\ApiHandler;
 
-use PhoneBurner\Api\Handler\DispatchMiddleware as SUT;
-use PhoneBurner\Api\Handler\HandlerFactory;
+use PhoneBurner\ApiHandler\DispatchMiddleware as SUT;
+use PhoneBurner\ApiHandler\HandlerFactory;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

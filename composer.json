@@ -47,12 +47,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PhoneBurner\\Api\\Handler\\": "src/"
+            "PhoneBurner\\ApiHandler\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhoneBurnerTest\\Api\\Handler\\": "tests/"
+            "PhoneBurner\\Tests\\ApiHandler\\": "tests/"
         }
     },
     "scripts": {
