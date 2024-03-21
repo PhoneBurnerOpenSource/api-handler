@@ -1,0 +1,7 @@
+.github
+build
+storage
+vendor
+docker-compose.override.yml
+phpunit.xml
+phpstan.neon
