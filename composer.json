@@ -19,7 +19,7 @@
             "email": "tim@phoneburner.com"
         }
     ],
-    "minimum-stability": "rc",
+    "minimum-stability": "RC",
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
