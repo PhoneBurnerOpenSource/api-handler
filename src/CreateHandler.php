@@ -7,6 +7,10 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class CreateHandler extends DefaultHandler
 {
+    /**
+     * @template T of object
+     * @param Hydrator<T> $hydrator
+     */
     public function __construct(
         private readonly Hydrator $hydrator,
         private readonly Transformer $transformer,

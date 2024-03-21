@@ -7,6 +7,10 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ReadHandler extends DefaultHandler
 {
+    /**
+     * @template T of object
+     * @param Resolver<T> $resolver
+     */
     public function __construct(
         private readonly Resolver $resolver,
         private readonly Transformer $transformer,

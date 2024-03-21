@@ -14,7 +14,6 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Prophecy\Prophet;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -22,8 +21,6 @@ use Psr\Http\Message\StreamInterface;
 class TransformableResponseTest extends TestCase
 {
     use ProphecyTrait;
-
-    private const TRANSFORMED = 'a response';
 
     /**
      * @var ObjectProphecy<ResponseFactory>
@@ -97,8 +94,8 @@ class TransformableResponseTest extends TestCase
         self::assertSame($this->transformable_resource, $sut->transformable_resource);
     }
 
-    #[DataProvider('provideWithMethods')]
     #[Test]
+    #[DataProvider('provideWithMethods')]
     public function withMethods_realize_Response_once_and_return(string $method, array $args): void
     {
         $this->factory->make($this->transformable_resource, 200)->shouldBeCalledOnce();
@@ -117,9 +114,9 @@ class TransformableResponseTest extends TestCase
         self::assertSame($mutated_response, $sut->$method(...$args));
     }
 
-    #[DataProvider('provideGetMethods')]
     #[Test]
-    public function getMethods_realize_Response_once_and_pass_response($method, array $args, mixed $return): void
+    #[DataProvider('provideGetMethods')]
+    public function getMethods_realize_Response_once_and_pass_response(string $method, array $args, mixed $return): void
     {
         $this->factory->make($this->transformable_resource, 200)->shouldBeCalledOnce();
 
@@ -154,8 +151,7 @@ class TransformableResponseTest extends TestCase
         yield "withAddedHeader('test', 'line one')" => ['withAddedHeader', ['test', 'line one']];
         yield "withoutHeader('test')" => ['withoutHeader', ['test']];
 
-        $prophet = new Prophet();
-        $stream = $prophet->prophesize(StreamInterface::class)->reveal();
+        $stream = self::createStub(StreamInterface::class);
 
         yield "withBody(StreamInterface)" => ['withBody', [$stream]];
     }
@@ -185,8 +181,7 @@ class TransformableResponseTest extends TestCase
 
         yield "getHeaderLine('test)" => ['getHeaderLine', ['test'], 'line one, line two'];
 
-        $prophet = new Prophet();
-        $stream = $prophet->prophesize(StreamInterface::class)->reveal();
+        $stream = self::createStub(StreamInterface::class);
 
         yield "getBody()" => ['getBody', [], $stream];
     }

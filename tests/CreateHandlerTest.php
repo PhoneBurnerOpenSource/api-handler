@@ -6,7 +6,6 @@ namespace PhoneBurnerTest\Api\Handler;
 
 use PhoneBurner\Api\Handler\CreateHandler;
 use PhoneBurner\Api\Handler\Hydrator;
-use PhoneBurner\Api\Handler\Resolver;
 use PhoneBurner\Api\Handler\ResponseFactory;
 use PhoneBurner\Api\Handler\TransformableResource;
 use PhoneBurner\Api\Handler\Transformer;
@@ -33,11 +32,6 @@ class CreateHandlerTest extends TestCase
     private ObjectProphecy $hydrator;
 
     /**
-     * @var ObjectProphecy<Resolver>
-     */
-    private ObjectProphecy $resolver;
-
-    /**
      * @var ObjectProphecy<Transformer>
      */
     private ObjectProphecy $transformer;
@@ -46,7 +40,6 @@ class CreateHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->resolver = $this->prophesize(Resolver::class);
         $this->hydrator = $this->prophesize(Hydrator::class);
         $this->transformer = $this->prophesize(Transformer::class);
 

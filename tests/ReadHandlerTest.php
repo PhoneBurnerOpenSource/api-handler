@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurnerTest\Api\Handler;
 
-use PhoneBurner\Api\Handler\Hydrator;
 use PhoneBurner\Api\Handler\ReadHandler;
 use PhoneBurner\Api\Handler\Resolver;
 use PhoneBurner\Api\Handler\ResponseFactory;
@@ -28,11 +27,6 @@ class ReadHandlerTest extends TestCase
     private ObjectProphecy $factory;
 
     /**
-     * @var ObjectProphecy<Hydrator>
-     */
-    private ObjectProphecy $hydrator;
-
-    /**
      * @var ObjectProphecy<Resolver>
      */
     private ObjectProphecy $resolver;
@@ -47,7 +41,6 @@ class ReadHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->resolver = $this->prophesize(Resolver::class);
-        $this->hydrator = $this->prophesize(Hydrator::class);
         $this->transformer = $this->prophesize(Transformer::class);
 
         $this->sut = new ReadHandler(

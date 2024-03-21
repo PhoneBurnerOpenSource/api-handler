@@ -7,6 +7,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class DeleteHandler extends DefaultHandler
 {
+    /**
+     * @template T of object
+     * @param Resolver<T> $resolver
+     * @param Hydrator<T> $hydrator
+     */
     public function __construct(
         private readonly Resolver $resolver,
         private readonly Hydrator $hydrator,
