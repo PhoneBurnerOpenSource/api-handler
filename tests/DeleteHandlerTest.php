@@ -67,7 +67,7 @@ class DeleteHandlerTest extends TestCase
         $this->resolver->resolve($request)->willReturn($resource);
 
         $deleted = new stdClass();
-        $this->hydrator->delete($request, $resource)->willReturn($deleted);
+        $this->hydrator->delete($request, $resource)->willReturn($deleted)->shouldBeCalledOnce();
 
         $response = $this->prophesize(ResponseInterface::class)->reveal();
         $this->factory->make(new TransformableResource($deleted, $request, $this->transformer->reveal()), 200)
@@ -85,7 +85,7 @@ class DeleteHandlerTest extends TestCase
         $resource = new stdClass();
         $this->resolver->resolve($request)->willReturn($resource);
 
-        $this->hydrator->delete($request, $resource)->willReturn(null);
+        $this->hydrator->delete($request, $resource)->willReturn(null)->shouldBeCalledOnce();
 
         $response = $this->prophesize(ResponseInterface::class)->reveal();
         $this->factory->make(null, 204)

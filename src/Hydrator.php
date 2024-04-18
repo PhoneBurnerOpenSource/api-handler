@@ -14,13 +14,13 @@ interface Hydrator
     /**
      * @phpstan-return T
      */
-    public function create(ServerRequestInterface $request): object;
+    public function create(ServerRequestInterface $request): ?object;
 
     /**
      * @phpstan-param T $object
      * @phpstan-return T
      */
-    public function update(ServerRequestInterface $request, object $object): object;
+    public function update(ServerRequestInterface $request, object $object): ?object;
 
     /**
      * @phpstan-param T $object

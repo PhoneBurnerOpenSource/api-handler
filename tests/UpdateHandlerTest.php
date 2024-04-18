@@ -67,10 +67,28 @@ class UpdateHandlerTest extends TestCase
         $this->resolver->resolve($request)->willReturn($resource);
 
         $updated = new stdClass();
-        $this->hydrator->update($request, $resource)->willReturn($updated);
+        $this->hydrator->update($request, $resource)->willReturn($updated)->shouldBeCalledOnce();
 
         $response = $this->prophesize(ResponseInterface::class)->reveal();
         $this->factory->make(new TransformableResource($updated, $request, $this->transformer->reveal()), 200)
+            ->willReturn($response);
+
+        $this->sut->setResponseFactory($this->factory->reveal());
+
+        self::assertSame($response, $this->sut->handle($request));
+    }
+
+    #[Test]
+    public function handle_resolves_resource_and_allows_null_updated_resource(): void
+    {
+        $request = $this->prophesize(ServerRequestInterface::class)->reveal();
+        $resource = new stdClass();
+        $this->resolver->resolve($request)->willReturn($resource);
+
+        $this->hydrator->update($request, $resource)->willReturn(null)->shouldBeCalledOnce();
+
+        $response = $this->prophesize(ResponseInterface::class)->reveal();
+        $this->factory->make(null, 204)
             ->willReturn($response);
 
         $this->sut->setResponseFactory($this->factory->reveal());

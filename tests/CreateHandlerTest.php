@@ -56,7 +56,7 @@ class CreateHandlerTest extends TestCase
     {
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
         $created = new stdClass();
-        $this->hydrator->create($request)->willReturn($created);
+        $this->hydrator->create($request)->willReturn($created)->shouldBeCalledOnce();
 
         $response = $this->prophesize(ResponseInterface::class)->reveal();
         $transformable_resource = new TransformableResource($created, $request, $this->transformer->reveal());
@@ -64,6 +64,20 @@ class CreateHandlerTest extends TestCase
             ->willReturn($response);
 
         $this->sut->setResponseFactory($this->factory->reveal());
+
+        self::assertSame($response, $this->sut->handle($request));
+    }
+
+    #[Test]
+    public function handle_allows_null_resource_and_returns_accepted(): void
+    {
+        $request = $this->prophesize(ServerRequestInterface::class)->reveal();
+        $this->hydrator->create($request)->willReturn(null)->shouldBeCalledOnce();
+
+        $this->sut->setResponseFactory($this->factory->reveal());
+        $response = $this->prophesize(ResponseInterface::class)->reveal();
+        $this->factory->make(null, 204)
+            ->willReturn($response);
 
         self::assertSame($response, $this->sut->handle($request));
     }

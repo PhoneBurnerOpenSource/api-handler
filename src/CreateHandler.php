@@ -21,9 +21,15 @@ class CreateHandler extends DefaultHandler
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $resource = $this->hydrator->create($request);
+
+        if ($resource === null) {
+            return $this->getResponseFactory()->make(null, 204);
+        }
+
         return $this->getResponseFactory()->make(
             new TransformableResource(
-                $this->hydrator->create($request),
+                $resource,
                 $request,
                 $this->transformer,
             ),
