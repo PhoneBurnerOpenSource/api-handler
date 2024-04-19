@@ -18,7 +18,7 @@ interface Hydrator
 
     /**
      * @phpstan-param T $object
-     * @phpstan-return T
+     * @phpstan-return T|null
      */
     public function update(ServerRequestInterface $request, object $object): ?object;
 
