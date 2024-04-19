@@ -15,6 +15,42 @@
     ],
     "authors": [
         {
+            "name": "Aaron Barczewski",
+            "email": "aaronb@phoneburner.com"
+        },
+        {
+            "name": "Andy Snell",
+            "email": "andy@phoneburner.com"
+        },
+        {
+            "name": "Conor Hooley",
+            "email": "conorh@phoneburner.com"
+        },
+        {
+            "name": "John Boctor",
+            "email": "johnb@phoneburner.com"
+        },
+        {
+            "name": "John Congdon",
+            "email": "jcongdon@phoneburner.com"
+        },
+        {
+            "name": "Joseph Lavin",
+            "email": "joseph@phoneburner.com"
+        },
+        {
+            "name": "Josh Osenbaugh",
+            "email": "josho@phoneburner.com"
+        },
+        {
+            "name": "Phil Tadeo",
+            "email": "phil@phoneburner.com"
+        },
+        {
+            "name": "Josh Osenbaugh",
+            "email": "josho@phoneburner.com"
+        },
+        {
             "name": "Tim Lytle",
             "email": "tim@phoneburner.com"
         }
