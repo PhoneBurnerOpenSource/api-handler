@@ -23,12 +23,18 @@ class UpdateHandler extends DefaultHandler
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $resource = $this->hydrator->update(
+            $request,
+            $this->resolver->resolve($request),
+        );
+
+        if ($resource === null) {
+            return $this->getResponseFactory()->make(null, 204);
+        }
+
         return $this->getResponseFactory()->make(
             new TransformableResource(
-                $this->hydrator->update(
-                    $request,
-                    $this->resolver->resolve($request),
-                ),
+                $resource,
                 $request,
                 $this->transformer,
             ),
