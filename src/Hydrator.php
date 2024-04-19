@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 interface Hydrator
 {
     /**
-     * @phpstan-return T
+     * @phpstan-return T|null
      */
     public function create(ServerRequestInterface $request): ?object;
 
